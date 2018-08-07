@@ -1,9 +1,10 @@
-// import {combineReducers, createStore} from "redux";
-// import Todo from "./todo";
-// import Content from "./content";
+import {combineReducers, createStore} from "redux";
+import Todo from "./Todo";
 
-// const reducers = combineReducers({
-//     todo: Todo,
-//     content: Content
-// });
+
+const reducers = combineReducers({
+    todo: Todo
+});
+
+export default createStore(reducers);
 

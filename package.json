@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "build-linux": "node_modules/webpack/bin/webpack.js --config webpack.config.js"
+    "build-linux": "node_modules/webpack/bin/webpack.js --config webpack.config.js",
+    "watch-linux": "node_modules/webpack/bin/webpack.js --config webpack.config.js --watch"
   },
   "dependencies": {
     "autoprefixer-loader": "^3.2.0",

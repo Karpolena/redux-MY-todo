@@ -1,13 +1,15 @@
-// export let addTodo = (payload) => {
-//     return {
-//         type: "add-todo",
-//         payload
-//     }
-// }
+import {TODO} from "./../constants/Todo";
 
-// export let removeTodo = (payload) => {
-//     return {
-//         type: "remove-todo",
-//         payload
-//     }
-// }
+export const addItem = (payload) => {
+     return {
+         type: TODO.ADD_ITEM,
+         payload
+     }
+}
+
+ export const removeItem = (payload) => {
+     return {
+         type: TODO.REMOVE_ITEM,
+         payload
+     }
+ }

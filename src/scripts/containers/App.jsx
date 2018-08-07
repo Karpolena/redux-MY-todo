@@ -1,28 +1,46 @@
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-// import {addTodo, removeTodo} from "./../actions/Todo";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import {addItem, removeItem} from "./../actions/Todo";
 
 
 class App extends Component {
-    addTodo() {
-console.log(this.todoInput.value);
-this.props.onAddTodo(this.todoInput.value);
-this.todoInput.value = '';
+
+    addItem = () => {
+        this.props.dispatch(addItem({
+            id: Math.random().toString(36).substring(7),
+            title: this.todoInput.value
+        }))
+        this.todoInput.value = "";
     }
+
+    removeItem = (id) => {
+        this.props.dispatch(removeItem({id}));
+    }
+
+    initRef = (input) => {
+        this.todoInput = input;
+    }
+
     render() {
-        console.log(this.props.testStore);
+        let {todo} = this.props;
         return(
             <div>
                 <header>Todo list</header>
-                <input type="text" ref={(input) => this.todoInput = input} placeholder="Write a task" />
-                <button onClick={this.addTodo.bind(this)}>Add</button>
+                <input type="text" ref={this.initRef} placeholder="Write a task" />
+                <button onClick={this.addItem}>Add</button>
                 <section>
                     <ul>
-                        {this.props.testStore.map((task, index) => 
-                        <li key={index}>{task.name}
-                        <button>Del</button>
-                        </li>)}                        
+                        {
+                            todo.map((task, index) => 
+                                <li key={index}>{task.title}
+                                    <button onClick={this.removeItem.bind(this, task.id)}>
+                                        Del
+                                    </button>
+                                </li>
+                            )
+                    }                        
                     </ul>
                 </section>
             </div>
@@ -30,12 +48,10 @@ this.todoInput.value = '';
         );
     }
 }
-export default connect(
-    state => ({
-        testStore: state
-    }),
-    dispatch => ({
-        onAddTodo: (name) => dispatch({ type: 'ADD_TODO', payload: {name} })  
-    })
 
-)(App);
+App.propTypes = {
+    todo: PropTypes.array,
+    dispatch: PropTypes.func
+}
+
+export default connect(({todo}) => todo)(App);
